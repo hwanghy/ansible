@@ -1,0 +1,9 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+
+    - name: set timezone Asia/Ho_Chi_Minh
+      timezone:
+        name: Asia/Ho_Chi_Minh

@@ -1,0 +1,14 @@
+- name: perform yum update / reboot server
+  hosts: all
+  become: true
+  become_method: sudo
+  become_user: root
+
+  tasks:
+        - name: Perform yum update of all packages
+          yum:
+            name: '*'
+            state: latest
+        - name: Reboot server
+          command: /sbin/shutdown -r +1
+          ignore_errors: true

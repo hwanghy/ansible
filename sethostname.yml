@@ -1,0 +1,10 @@
+- name: Set hostname
+  hosts: centos
+  become: True
+  become_user: root
+  gather_facts: True
+  tasks:
+    - hostname:
+        name: "node{{ play_hosts.index(inventory_hostname)|int+1 }}.localdomain"
+    - debug: msg="{{ play_hosts.index(inventory_hostname) }}"
+    - debug: msg="{{ inventory_hostname }}"

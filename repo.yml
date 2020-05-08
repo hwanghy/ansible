@@ -1,0 +1,12 @@
+- hosts: all
+  become: yes
+  become_method: sudo
+  tasks:
+  - name: epel repo install.
+    yum:
+      name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+      state: present
+  - name: Import EPEL GPG Key.
+    rpm_key:
+      key: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8
+      state: present
