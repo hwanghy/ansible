@@ -1,0 +1,6 @@
+---
+ - name: rsnapshot backup management
+   hosts:
+    - all
+   roles:
+    - rsnapshot

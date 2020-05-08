@@ -1,0 +1,17 @@
+- name: upload config file
+  template:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    backup: yes
+  with_items:
+    - src: rsnapshot.conf
+      dest: /etc/rsnapshot.conf
+    - src: rsnapshot_backup.sh
+      dest: /usr/bin/rsnapshot_backup.sh
+- name: set crontab to run daily backup
+  cron:
+    name: "rsnapshot daily backup"
+    job: /bin/bash /usr/bin/rsnapshot_backup.sh
+    state: present
+#    minute: '2'
+#    hour: '1'

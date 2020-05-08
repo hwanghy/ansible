@@ -1,0 +1,10 @@
+- name: install rsnapshot
+  include: install.yml
+  tags: [install]
+
+- name: deploy rsnapshot
+  include: config.yml
+  tags: [config]
+
+- debug:
+    msg: "Don't forget to add public key rsnapshot.pem.pub to your needed backup servers"

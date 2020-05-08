@@ -1,0 +1,14 @@
+---
+# tasks file for rsnapshot installation
+- name: check rsnapshot installed or not
+  shell: which rsnapshot
+  ignore_errors: yes
+  register: check_rsnapshot
+
+- name: install rsnapshot
+  when: check_rsnapshot is failed
+  block:
+    - name: install rsnapshot
+      package:
+        name: rsnapshot
+        state: present

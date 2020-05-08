@@ -1,0 +1,28 @@
+---
+# defaults file for rsnapshot
+snapshot_root: '/vz/backup/'
+no_create_root: 1
+weekly_plan_name: 'weekly'
+telegram:
+  channel: '-489923308'
+  token: 938486429:AAGUmeqFRz--g_NUqAUqkNZRFRGTGv_gdiA
+  admin: '@triluu'
+backup_log: /var/log/rsnapshot.log
+log_level: 5 # debug
+host_list:
+    # host1
+  - ip: '192.168.58.139'
+    port: '22'
+    locations:
+      - '/home'
+      - '/etc'
+      - '/backup/mysql_backup/'
+    # host2
+  - ip: '192.168.58.138'
+    port: '22'
+    locations:
+      - '/var/www'
+      - '/etc'
+      - '/backup/mysql_backup/'
+
+

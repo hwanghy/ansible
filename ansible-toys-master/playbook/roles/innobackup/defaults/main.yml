@@ -1,0 +1,9 @@
+backup_dir: '/backup/mysql_backup'
+backup_user: 'backup'
+backup_password: '123456'
+percona_repo: 'https://repo.percona.com/yum/percona-release-latest.noarch.rpm'
+percona_repo_deb: 'https://repo.percona.com/apt/percona-release_latest.$(lsb_release -sc)_all.deb'
+telegram:
+  channel: '-4899233085'
+  token: 938486429:AAGUmeqFRz--g_NUqAUqkNZRFRGTGv_gdiA
+  admin: '@Bot'

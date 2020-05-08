@@ -1,0 +1,6 @@
+---
+ - name: innobackup deploy
+   hosts:
+    - all 
+   roles:
+    - innobackup

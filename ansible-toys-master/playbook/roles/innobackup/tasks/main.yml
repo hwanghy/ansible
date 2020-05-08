@@ -1,0 +1,63 @@
+- name: install percorna and zstd for Redhat
+  block:
+
+    - name: install epel-release and cronie
+      yum:
+        name:
+          - epel-release
+          - cronie
+          - zstd
+          - '{{ percona_repo }}'
+        state: present
+
+    - name: install percona backup
+      yum:
+        name: percona-xtrabackup-24
+        state: present
+
+  when: ansible_os_family == 'RedHat'
+  tags:
+    - install
+    - redhat
+
+- name: install zstd and innobackup for debian
+  block:
+    - name: wget percona repo
+      shell: |
+        wget {{ percona_repo_deb }} -O /usr/src/percona-release_latest.deb
+        dpkg -i /usr/src/percona-release_latest.deb
+
+    - name: install packages
+      apt:
+        update_cache: yes
+        name:
+          - zstd
+          - percona-xtrabackup-24
+  when: ansible_os_family == "Debian"
+  tags:
+    - install
+    - debian
+
+- name: Create database user with name 'backup' and password '123456' with all database privileges
+  mysql_user:
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    name: backup 
+    password: 123456
+    priv: '*.*:ALL,GRANT'
+    state: present
+
+- name: upload backup_script
+  template:
+    src: innobackup.sh
+    dest: /opt/mysqlinnobackup
+    mode: 0710
+  tags: [cron]
+
+- name: set crontab to automatically run backup
+  cron:
+    name: "mysqlbackup"
+    job: "/opt/mysqlinnobackup"
+    state: present
+#    minute: '0'
+#    hour: '0'
+  tags: [cron]
